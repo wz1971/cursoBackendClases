@@ -1,4 +1,6 @@
 class ProductManager {
+  currentId = 0
+
   constructor() {
     this.products = []
   }
@@ -11,31 +13,14 @@ class ProductManager {
     return this.products.find((product) => product.id === prodId) || console.error("Not found")
   }
 
-  getProdId() {
-    let max = 0
-
-    this.products.forEach((product) => {
-      max = product.id > max && product.id
-    })
-    return max + 1
-  }
-
-  addProduct(title, description, price, thumbnail, code, stock) {
-    let product = {
-      title: title,
-      description: description,
-      price: price,
-      thumbnail: thumbnail,
-      code: code,
-      stock: stock,
-    }
+  addProduct(product) {
     if (!Object.values(product).every((val) => val)) {
       console.error("Error! All properties must be provided.")
     } else if (this.products.some((prod) => prod.code === product.code)) {
       console.error("Error! Product code already exists.")
     } else {
-      product = { ...product, id: this.getProdId() }
-      this.products.push(product)
+      this.currentId += 1
+      this.products.push({ ...product, id: this.currentId })
     }
   }
 }
@@ -43,11 +28,32 @@ class ProductManager {
 const PM = new ProductManager()
 console.log("Product List: " + JSON.stringify(PM.getProducts()))
 console.log("Adding product")
-PM.addProduct("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25)
-PM.addProduct("producto prueba 2", "Este es otro producto prueba", 100, "Sin imagen", "def456", 50)
+PM.addProduct({
+  title: "producto prueba",
+  description: "Este es un producto prueba",
+  price: 200,
+  thumbnail: "Sin imagen",
+  code: "abc123",
+  stock: 25,
+})
+PM.addProduct({
+  title: "producto prueba 2",
+  description: "Este es otro producto prueba",
+  price: 100,
+  thumbnail: "Sin imagen",
+  code: "def456",
+  stock: 50,
+})
 console.log("Product List: " + JSON.stringify(PM.getProducts()))
 
-PM.addProduct("producto prueba3", "Este es un producto prueba más", 300, "Sin imagen", "abc123", 25)
+PM.addProduct({
+  title: "producto prueba3",
+  description: "Este es un producto prueba más",
+  price: 300,
+  thumbnail: "Sin imagen",
+  code: "abc123",
+  stock: 25,
+})
 
 PM.getProductById(5)
 
