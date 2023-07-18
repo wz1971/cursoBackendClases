@@ -6,6 +6,6 @@
 
 - Main: Commit inicial, sólo la descripción del proyecto.
 - Clase1: Hands On lab de clase 1.
-- Clase2: Hands On de clase2 + Desafío Entregable 1
-- Clase3: Hands On de clase3 + correcciones Desafío Entregable 1
-  
+- Clase2: Hands On de clase 2 + Desafío Entregable 1
+- Clase3: Hands On de clase 3 (incompleto) + correcciones Desafío Entregable 1
+- Clase4: Desafío Entregable 2
