@@ -33,10 +33,8 @@ class ProductManager {
       this.prodlist[idx].thumbnail = newprod.thumbnail
       this.prodlist[idx].code = newprod.code
       this.prodlist[idx].stock = newprod.stock
-      console.log("Updating product list...\n")
       this.writeProdFile(this.prodlist)
-      console.log("Done.\n")
-    } else {
+      } else {
       console.log("Product Id not found.\n")
     }
   }
