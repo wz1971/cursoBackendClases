@@ -11,20 +11,20 @@ class ProductManager {
 
   initializeFile() {
     if (!fs.existsSync(this.prodFile)) {
-      this.writeFile(this.products)
+      this.writeProdFile(this.products)
     }
   }
 
-  writeFile(prodlist) {
+  writeProdFile(prodlist) {
     fs.writeFileSync(this.prodFile, JSON.stringify(prodlist))
   }
 
-  readFile() {
+  readProdFile() {
     return JSON.parse(fs.readFileSync(this.prodFile, "utf-8"))
   }
 
   updateProduct(prodId, newprod) {
-    this.prodlist = this.readFile()
+    this.prodlist = this.readProdFile()
     let idx = this.prodlist.findIndex((item) => item.id === prodId)
     if (idx >= 0) {
       this.prodlist[idx].title = newprod.title
@@ -34,7 +34,7 @@ class ProductManager {
       this.prodlist[idx].code = newprod.code
       this.prodlist[idx].stock = newprod.stock
       console.log("Updating product list...\n")
-      this.writeFile(this.prodlist)
+      this.writeProdFile(this.prodlist)
       console.log("Done.\n")
     } else {
       console.log("Product Id not found.\n")
@@ -42,17 +42,17 @@ class ProductManager {
   }
 
   deleteProduct(prodId) {
-    this.products = this.readFile().filter((item) => item.id !== prodId)
-    this.writeFile(this.products)
+    this.products = this.readProdFile().filter((item) => item.id !== prodId)
+    this.writeProdFile(this.products)
   }
 
   getProducts() {
-    this.products = this.readFile()
+    this.products = this.readProdFile()
     return this.products
   }
 
   getProductById(prodId) {
-    this.products = this.readFile()
+    this.products = this.readProdFile()
     return this.products.find((product) => product.id === prodId) || console.error("Not found.\n")
   }
 
@@ -63,9 +63,9 @@ class ProductManager {
       console.error("Error! Product code already exists.\n")
     } else {
       this.currentId += 1
-      this.products = this.readFile()
+      this.products = this.readProdFile()
       this.products.push({ ...product, id: this.currentId })
-      this.writeFile(this.products)
+      this.writeProdFile(this.products)
     }
   }
 }
